@@ -11,16 +11,12 @@ Write-Host "Downloading Python 3.14.0 64-bit embedded version..."
 curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python-3.14.0-embed-amd64.zip -o .\python314-embed.zip
 
 Clear-Host
+Write-Host "Setting up Python 3.14.0 64-bit embedded version..."
 New-Item -Path .\python314-embed -ItemType Directory
 Expand-Archive -Path .\python314-embed.zip -DestinationPath .\python314-embed
 Remove-Item -Path .\python314-embed.zip
 Set-Location .\python314-embed
-Set-Content -Path ".\python314._pth" -Encoding ascii -Value @"
-python314.zip
-.
-..
-import site
-"@
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python314.zip -o .\python314.zip 
 
 Clear-Host
 Write-Host "Downloading necessary requirements..."
