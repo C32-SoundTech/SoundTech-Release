@@ -28,3 +28,8 @@ pip install agentuniverse --index-url https://mirrors.aliyun.com/pypi/simple/ --
 pip install pypdf --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
 Clear-Host
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/V2.0.0-Windows.zip -o "$rootDir\SoundTech-Release.zip"
+Expand-Archive -Path "$rootDir\SoundTech-Release.zip" -DestinationPath $rootDir
+Remove-Item -Path "$rootDir\SoundTech-Release.zip"
+
+Clear-Host
