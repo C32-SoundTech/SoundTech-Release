@@ -3,7 +3,7 @@
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Clear-Host
-Write-Host "Downloading SoundTech V1.0.0 Windows version..."
+Write-Host "Downloading SoundTech V2.0.0 Windows version..."
 curl https://gitee.com/dingdust/SoundTech-Release/raw/main/V1.0.0-Windows.zip -o .\one-click-to-install.zip
 New-Item -Path .\SoundTech -ItemType Directory
 Expand-Archive -Path .\one-click-to-install.zip -DestinationPath .\SoundTech
