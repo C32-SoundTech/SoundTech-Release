@@ -1,33 +1,30 @@
-# 安装、部署脚本（可实现在Windows系统上从零一键运行）
-# Get-ExecutionPolicy
-# Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+$rootDir = Get-Location
+$pythonDir = "$rootDir\python-3.12.9"
+if (Test-Path $pythonDir) {
+    Remove-Item -Path $pythonDir -Recurse
+}
+New-Item -Path $pythonDir -ItemType Directory
+Clear-Host
+Write-Host "Downloading python312.dll"
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/python312.dll -o "$pythonDir\python312.dll"
+Write-Host "Downloading python312.zip"
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/python312.zip -o "$pythonDir\python312.zip"
+Write-Host "Downloading libcrypto-3.dll"
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/libcrypto-3.dll -o "$pythonDir\libcrypto-3.dll"
+Write-Host "Downloading python-3.12.9.zip"
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/python-3.12.9.zip -o "$rootDir\python-3.12.9.zip"
+Clear-Host
+Expand-Archive -Path "$rootDir\python-3.12.9.zip" -DestinationPath $pythonDir
+Remove-Item -Path "$rootDir\python-3.12.9.zip"
 
 Clear-Host
-Write-Host "Downloading SoundTech V2.0.0 Windows version..."
-curl https://gitee.com/dingdust/SoundTech-Release/raw/main/V1.0.0-Windows.zip -o .\one-click-to-install.zip
-New-Item -Path .\SoundTech -ItemType Directory
-Expand-Archive -Path .\one-click-to-install.zip -DestinationPath .\SoundTech
-Remove-Item -Path .\one-click-to-install.zip
-Set-Location .\SoundTech
+$env:Path = "$pythonDir;$env:Path"
+python .\python-3.12.9\get-pip.py --no-warn-script-location
+Remove-Item -Path "$pythonDir\get-pip.py"
 
 Clear-Host
-Write-Host "Downloading Python 3.14.0 64-bit embedded version..."
-curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python-3.14.0-embed-amd64.zip -o .\python314-embed.zip
+$env:Path = "$pythonDir\Scripts;$env:Path"
+pip install agentuniverse --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
+pip install pypdf --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
 Clear-Host
-Write-Host "Setting up Python 3.14.0 64-bit embedded version..."
-New-Item -Path .\python314-embed -ItemType Directory
-Expand-Archive -Path .\python314-embed.zip -DestinationPath .\python314-embed
-Remove-Item -Path .\python314-embed.zip
-Set-Location .\python314-embed
-curl https://gitee.com/dingdust/SoundTech-Release/raw/main/python314.zip -o .\python314.zip 
-
-Clear-Host
-Write-Host "Downloading necessary requirements..."
-curl https://gitee.com/dingdust/SoundTech-Release/raw/main/get-pip.py -o .\get-pip.py 
-.\python.exe .\get-pip.py --no-warn-script-location
-.\python.exe -m pip install -r ..\requirements.txt --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
-Set-Location ..
-
-Clear-Host
-.\python314-embed\python.exe .\app.py --port 8888
