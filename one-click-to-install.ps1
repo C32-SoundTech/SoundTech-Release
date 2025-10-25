@@ -67,6 +67,7 @@ Remove-Item -LiteralPath "$pythonDir\get-pip.py" -Force -ErrorAction SilentlyCon
 Clear-Host
 $env:Path = "$pythonDir\Scripts;$env:Path"
 pip install agentuniverse==0.0.17 --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
+pip install flask --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
 Clear-Host
 $api_key = Read-Host "Please enter your API key"
