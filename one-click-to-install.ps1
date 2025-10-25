@@ -19,6 +19,9 @@ if (Test-Path "$rootDir\logs") {
 if (Test-Path "$rootDir\resources") {
     Remove-Item -LiteralPath "$rootDir\resources" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
 }
+if (Test-Path "$rootDir\static") {
+    Remove-Item -LiteralPath "$rootDir\static" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
+}
 if (Test-Path "$rootDir\templates") {
     Remove-Item -LiteralPath "$rootDir\templates" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
 }
