@@ -69,7 +69,7 @@ $env:Path = "$pythonDir\Scripts;$env:Path"
 pip install agentuniverse==0.0.17 --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
 Clear-Host
-$api_key = Read-Host "Please enter your API key"
+$api_key = Read-Host "Please enter your API key: "
 Set-Content -Path "$rootDir\config\custom_key.toml" -Encoding ascii -Value @"
 [KEY_LIST]
 DASHSCOPE_API_KEY='$api_key'
