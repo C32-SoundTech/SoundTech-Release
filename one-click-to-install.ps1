@@ -17,15 +17,18 @@ Expand-Archive -Path "$rootDir\python-3.12.9.zip" -DestinationPath $pythonDir
 Remove-Item -Path "$rootDir\python-3.12.9.zip"
 
 Clear-Host
+Write-Host "Downloading SoundTech-Release.zip"
 curl https://gitee.com/dingdust/SoundTech-Release/raw/main/V2.0.0-Windows.zip -o "$rootDir\SoundTech-Release.zip"
 Expand-Archive -Path "$rootDir\SoundTech-Release.zip" -DestinationPath $rootDir
+Write-Host "Downloading database.zip"
 Remove-Item -Path "$rootDir\SoundTech-Release.zip"
 curl https://gitee.com/dingdust/SoundTech-Release/raw/main/database.zip -o "$rootDir\static\database.zip"
-Expand-Archive -Path "$rootDir\static\database.zip" -DestinationPath $rootDir
+Expand-Archive -Path "$rootDir\static\database.zip" -DestinationPath "$rootDir\static"
 Remove-Item -Path "$rootDir\static\database.zip"
-curl https://gitee.com/dingdust/SoundTech-Release/raw/main/chrome.zip -o "$rootDir\static\chrome.zip"
-Expand-Archive -Path "$rootDir\static\chrome.zip" -DestinationPath $rootDir
-Remove-Item -Path "$rootDir\static\chrome.zip"
+Write-Host "Downloading chroma.zip"
+curl https://gitee.com/dingdust/SoundTech-Release/raw/main/chroma.zip -o "$rootDir\static\chroma.zip"
+Expand-Archive -Path "$rootDir\static\chroma.zip" -DestinationPath "$rootDir\static"
+Remove-Item -Path "$rootDir\static\chroma.zip"
 
 Clear-Host
 $env:Path = "$pythonDir;$env:Path"
