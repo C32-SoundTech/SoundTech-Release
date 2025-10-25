@@ -1,35 +1,32 @@
 $rootDir = (Get-Location).Path
 $pythonDir = Join-Path $rootDir 'python-3.11.9'
+$itemsToRemove = @(
+    $pythonDir,
+    (Join-Path $rootDir 'agentic'),
+    (Join-Path $rootDir 'config'),
+    (Join-Path $rootDir 'handlers'),
+    (Join-Path $rootDir 'logs'),
+    (Join-Path $rootDir 'resources'),
+    (Join-Path $rootDir 'static'),
+    (Join-Path $rootDir 'templates'),
+    (Join-Path $rootDir '.gitignore'),
+    (Join-Path $rootDir 'app.py')
+)
 
-if (Test-Path $pythonDir) {
-    Remove-Item -LiteralPath $pythonDir -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\agentic") {
-    Remove-Item -LiteralPath "$rootDir\agentic" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\config") {
-    Remove-Item -LiteralPath "$rootDir\config" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\handlers") {
-    Remove-Item -LiteralPath "$rootDir\handlers" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\logs") {
-    Remove-Item -LiteralPath "$rootDir\logs" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\resources") {
-    Remove-Item -LiteralPath "$rootDir\resources" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\static") {
-    Remove-Item -LiteralPath "$rootDir\static" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\templates") {
-    Remove-Item -LiteralPath "$rootDir\templates" -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\.gitignore") {
-    Remove-Item -LiteralPath "$rootDir\.gitignore" -Force -ErrorAction SilentlyContinue -Confirm:$false
-}
-if (Test-Path "$rootDir\app.py") {
-    Remove-Item -LiteralPath "$rootDir\app.py" -Force -ErrorAction SilentlyContinue -Confirm:$false
+foreach ($p in $itemsToRemove) {
+    if ($null -ne $p -and (Test-Path -LiteralPath $p)) {
+        $isDir = $false
+        try {
+            $isDir = (Get-Item -LiteralPath $p).PSIsContainer
+        } catch {
+            $isDir = $false
+        }
+        if ($isDir) {
+            Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
+        } else {
+            Remove-Item -LiteralPath $p -Force -ErrorAction SilentlyContinue -Confirm:$false
+        }
+    }
 }
 New-Item -Path $pythonDir -ItemType Directory -Force | Out-Null
 
