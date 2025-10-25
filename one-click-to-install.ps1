@@ -1,5 +1,5 @@
 $rootDir = (Get-Location).Path
-$pythonDir = Join-Path $rootDir 'python-3.12.9'
+$pythonDir = Join-Path $rootDir 'python-3.11.9'
 
 if (Test-Path $pythonDir) {
     Remove-Item -LiteralPath $pythonDir -Recurse -Force -ErrorAction SilentlyContinue -Confirm:$false
@@ -34,16 +34,16 @@ if (Test-Path "$rootDir\app.py") {
 New-Item -Path $pythonDir -ItemType Directory -Force | Out-Null
 
 Clear-Host
-Write-Host "Downloading python312.dll"
-Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/python312.dll' -OutFile "$pythonDir\python312.dll"
-Write-Host "Downloading python312.zip"
-Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/python312.zip' -OutFile "$pythonDir\python312.zip"
+Write-Host "Downloading python311.dll"
+Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python311/python311.dll' -OutFile "$pythonDir\python311.dll"
+Write-Host "Downloading python311.zip"
+Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python311/python311.zip' -OutFile "$pythonDir\python311.zip"
 Write-Host "Downloading libcrypto-3.dll"
-Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/libcrypto-3.dll' -OutFile "$pythonDir\libcrypto-3.dll"
-Write-Host "Downloading python-3.12.9.zip"
-Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python312/python-3.12.9.zip' -OutFile "$rootDir\python-3.12.9.zip"
-Expand-Archive -Path "$rootDir\python-3.12.9.zip" -DestinationPath $pythonDir -Force
-Remove-Item -LiteralPath "$rootDir\python-3.12.9.zip" -Force -ErrorAction SilentlyContinue -Confirm:$false
+Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python311/libcrypto-3.dll' -OutFile "$pythonDir\libcrypto-3.dll"
+Write-Host "Downloading python-3.11.9.zip"
+Invoke-WebRequest -Uri 'https://gitee.com/dingdust/SoundTech-Release/raw/main/python311/python-3.11.9.zip' -OutFile "$rootDir\python-3.11.9.zip"
+Expand-Archive -Path "$rootDir\python-3.11.9.zip" -DestinationPath $pythonDir -Force
+Remove-Item -LiteralPath "$rootDir\python-3.11.9.zip" -Force -ErrorAction SilentlyContinue -Confirm:$false
 
 Clear-Host
 Write-Host "Downloading SoundTech-Release.zip"
@@ -61,13 +61,12 @@ Remove-Item -LiteralPath "$rootDir\static\chroma.zip" -Force -ErrorAction Silent
 
 Clear-Host
 $env:Path = "$pythonDir;$env:Path"
-python .\python-3.12.9\get-pip.py --no-warn-script-location
+python .\python-3.11.9\get-pip.py --no-warn-script-location 
 Remove-Item -LiteralPath "$pythonDir\get-pip.py" -Force -ErrorAction SilentlyContinue -Confirm:$false
 
 Clear-Host
 $env:Path = "$pythonDir\Scripts;$env:Path"
 pip install agentuniverse==0.0.17 --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
-pip install flask --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
 Clear-Host
 $api_key = Read-Host "Please enter your API key"
