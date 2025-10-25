@@ -1,4 +1,4 @@
-# 安装、部署脚本（可实现在Windows系统上从零一键运行）
+# one-click-to-install.ps1 Windows-Version
 # Get-ExecutionPolicy
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
