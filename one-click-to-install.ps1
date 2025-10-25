@@ -37,7 +37,8 @@ Remove-Item -Path "$pythonDir\get-pip.py"
 
 Clear-Host
 $env:Path = "$pythonDir\Scripts;$env:Path"
-pip install agentuniverse --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
-pip install pypdf --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
+pip install agentuniverse==0.0.17 --index-url https://mirrors.aliyun.com/pypi/simple/ --no-warn-script-location
 
 Clear-Host
+# sk-key
+# exist files
